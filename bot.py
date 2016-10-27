@@ -41,8 +41,9 @@ def handle(msg):
             protipCleanMatch = re.match("^cleanProtip ([0-9]+)", command)
             if protipCleanMatch:
                 index = protipCleanMatch.group(1)
+                print ("Removing protip #"+index)
                 if int(index) < len(protips):
-                    protips.pop(int(index-1))
+                    protips.pop(int(index)-1)
         else:
             protipMatch = re.match("^.*#protip (.*)", msg['text'])
             if protipMatch:
