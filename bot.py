@@ -37,7 +37,7 @@ def handle(msg):
                     response+=protip
                     response+="\n"
                     i+= 1
-                bot.sendMessage(chat_id,response, "*bold text*")
+                bot.sendMessage(chat_id,response, "Markdown")
 
         else:
             protipMatch = re.match("^.*#protip (.*)", msg['text'])
