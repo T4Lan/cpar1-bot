@@ -21,7 +21,7 @@ def handle(msg):
             command = matchObj.group(1)
             command.lower()
             fromUser = msg['from']['username']
-            print "[Command] ", command, " from ", fromUser
+            print("[Command] ", command, " from ", fromUser)
             if command == 'plano':
                 bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
             if command == 'quien sos':
