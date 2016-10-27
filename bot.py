@@ -27,10 +27,9 @@ def handle(msg):
             if command == 'como llego':
                 bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
             if command == 'protips':
-                response = ""
+                response="*Protips CPAR*\n"
                 i = 1
                 for protip in protips:
-                    reponse+="*Protips CPAR*\n"
                     response+="*"
                     response+=str(i)
                     response+="-"
