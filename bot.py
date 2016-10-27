@@ -27,7 +27,7 @@ def handle(msg):
             if command == 'quien sos':
                 bot.sendMessage(chat_id, "Soy el bot de la Campus Party Argentina y estoy para ayudarte!")
             if command == 'como llego':
-                bot.sendMessage(chat_id, "Soy el bot de la Campus Party Argentina y estoy para ayudarte!")
+                bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
             if command == 'protips':
                 response = ""
                 for protip in protips:
