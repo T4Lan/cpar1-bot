@@ -28,6 +28,7 @@ def handle(msg):
                 bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
             if command == 'protips':
                 response = ""
+                i = 1
                 for protip in protips:
                     response+="*"
                     response+=str(i)
