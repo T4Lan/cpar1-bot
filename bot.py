@@ -49,7 +49,7 @@ def handle(msg):
             bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/006225d505808e6")
         
         
-TOKEN = '299391109:AAGOfxhynll7-bwBZfvLeZRVFnxg4mfOR-Q'
+TOKEN = sys.argv[1]  # get token from command-line
 
 bot = telepot.Bot(TOKEN)
 bot.message_loop(handle)
