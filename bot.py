@@ -24,19 +24,22 @@ def handle(msg):
             print("[Command] ", command, " from ", fromUser)
             if command == 'plano':
                 bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
-            if command == 'quien sos':
-                bot.sendMessage(chat_id, "Soy el bot de la Campus Party Argentina y estoy para ayudarte!")
             if command == 'como llego':
                 bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
             if command == 'protips':
                 response = ""
                 for protip in protips:
+                    response+="*"
+                    response+=str(i)
+                    response+="-"
+                    response+="*"
                     response+=protip
                     response+="\n"
+                    i+= 1
                 bot.sendMessage(chat_id,response)
 
         else:
-            protipMatch = re.match("^.*#protip(.*)", msg['text'])
+            protipMatch = re.match("^.*#protip (.*)", msg['text'])
             if protipMatch:
                 protip = protipMatch.group(1)
                 print ("Protip: {}".format(protip))
