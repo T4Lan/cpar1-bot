@@ -39,7 +39,7 @@ def handle(msg):
             protipMatch = re.match("^.*#protip(.*)", msg['text'])
             if protipMatch:
                 protip = protipMatch.group(1)
-                print "Protip: {}".format(protip)
+                print("Protip: {}".format(protip))
                 protips.append(protip)
                 persistMessage(protip)
 
