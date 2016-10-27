@@ -1,40 +1,29 @@
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import sys
+import time
+import telepot
+import re
+from pprint import pprint
+import markovify
 
+def handle(msg):
+    content_type, chat_type, chat_id = telepot.glance(msg)
+    pprint(msg)
+
+    if content_type == 'text':
+        if msg['text'] == 'quiensos':
+            bot.sendMessage(chat_id, "Soy el bot de la Campus Party Argentina y estoy para ayudarte!")
+        if msg['text'] == 'plano':
+            bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
+        if msg['text'] == 'guia':
+            bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/006225d505808e6")
+        
+        
 TOKEN = '299391109:AAGOfxhynll7-bwBZfvLeZRVFnxg4mfOR-Q'
 
-def start(bot, update):
-    update.message.reply_text('Hi!')
+bot = telepot.Bot(TOKEN)
+bot.message_loop(handle)
+print ('Listening ...')
 
-
-def help(bot, update):
-    update.message.reply_text('Help!')
-
-
-def echo(bot, update):
-    update.message.reply_text(update.message.text)
-
-def mapa(bot, update):
-    update.message.reply_text('Te mando el mapa!')
-
-def main():
-    # Create the EventHandler and pass it your bot's token.
-    updater = Updater(TOKEN)
-
-    # Get the dispatcher to register handlers
-    dp = updater.dispatcher
-
-    # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("mapa", mapa))
-    
-    # on noncommand i.e message - echo the message on Telegram
-    #dp.add_handler(MessageHandler(Filters.text, echo))
-
-    updater.start_polling()
-
-    updater.idle()
-
-
-if __name__ == '__main__':
-    main()
+# Keep the program running.
+while 1:
+    time.sleep(10)
