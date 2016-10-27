@@ -24,9 +24,9 @@ def handle(msg):
             print("[Command] ", command, " from ", fromUser)
             if command == 'plano':
                 bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
-            if command == 'como llego':
+            else if command == 'como llego':
                 bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
-            if command == 'protips':
+            else if command == 'protips':
                 response="*Protips CPAR*\n"
                 i = 1
                 for protip in protips:
@@ -38,7 +38,11 @@ def handle(msg):
                     response+="\n"
                     i+= 1
                 bot.sendMessage(chat_id,response, "Markdown")
-
+            protipCleanMatch = re.match("^cleanProtip ([0-9]+)", command)
+            if protipCleanMatch:
+                index = protipCleanMatch.group(1)
+                if index < len(protips):
+                    protips.pop(index)
         else:
             protipMatch = re.match("^.*#protip (.*)", msg['text'])
             if protipMatch:
