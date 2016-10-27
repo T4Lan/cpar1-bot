@@ -34,7 +34,7 @@ def handle(msg):
                     response+="*"
                     response+=str(i)
                     response+="-"
-                    response+="*"
+                    response+="* "
                     response+=protip
                     response+="\n"
                     i+= 1
