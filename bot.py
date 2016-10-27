@@ -30,6 +30,7 @@ def handle(msg):
                 response = ""
                 i = 1
                 for protip in protips:
+                    reponse+="*Protips CPAR*\n"
                     response+="*"
                     response+=str(i)
                     response+="-"
