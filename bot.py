@@ -5,6 +5,7 @@ import re
 from pprint import pprint
 
 protips = []
+karma = []
 
 def persistMessage(msg):
      f = open('Data/protips', 'a+')
@@ -38,7 +39,10 @@ def handle(msg):
                     response+="\n"
                     i+= 1
                 bot.sendMessage(chat_id,response, "Markdown")
-            protipCleanMatch = re.match("^cleanProtip ([0-9]+)", command)
+            elif re.match("karma",command):
+		response = karma.count(re.sub("karma ","",command))
+                bot.sendMessage(chat_id,response)
+	    protipCleanMatch = re.match("^cleanProtip ([0-9]+)", command)
             if protipCleanMatch:
                 index = protipCleanMatch.group(1)
                 print ("Removing protip #"+index)
@@ -51,6 +55,13 @@ def handle(msg):
                 print ("Protip: {}".format(protip))
                 protips.append(protip)
                 persistMessage(protip)
+ 	    karmaMatch = re.match("(\w+)\+\+", msg['text'])
+	    if karmaMatch:
+		element = re.sub("\+\+",'',karmaMatch.group(1))
+		print ("Karma +1 a :".format(element))
+		karma.append(element)
+                persistMessage(protip)
+	
 
         if msg['text'] == 'whoareyou':
             bot.sendMessage(chat_id, "I'm a Bot programmed in Python, and y'all suck.")
