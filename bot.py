@@ -33,7 +33,7 @@ def handle(msg):
                 for protip in protips:
                     response+=protip
                     response+="\n"
-                    bot.sendMessage(chat_id,response)
+                bot.sendMessage(chat_id,response)
 
         else:
             protipMatch = re.match("^.*#protip(.*)", msg['text'])
