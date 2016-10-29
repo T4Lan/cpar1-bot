@@ -34,7 +34,7 @@ def handle_karma(bot, msg, chat_id):
 	response = karma.count(re.sub("karma ","",command))
 	bot.sendMessage(chat_id, response)
 
-def handle_protipClean(bot, msg, chat_id, match):
+def handle_cleanProtip(bot, msg, chat_id, match):
 	index = match.group(1)
 	print ("Removing protip #" + index)
 	if int(index) < len(protips):
@@ -63,7 +63,7 @@ def handle(msg):
 			}
 
 			for regex, handler in dispatcher.iteritems():
-				match = re.match("^cleanProtip ([0-9]+)", command)
+				match = re.match(regex, command)
 				if match:
 					handler(bot, msg, chat_id, match)  
 			return          
