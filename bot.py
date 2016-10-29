@@ -13,16 +13,16 @@ def persistMessage(msg):
 	 f.write("\n")
 	 f.close()
 
-def handle_plano(bot, msg, chat_id):
+def handle_plano(bot, msg, chat_id, match):
 	bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
 
-def handle_gatito(bot, msg, chat_id):
+def handle_gatito(bot, msg, chat_id, match):
 	bot.sendPhoto(chat_id, "http://thecatapi.com/api/images/get?type=gif")
 
-def handle_comollego(bot, msg, chat_id):
+def handle_comollego(bot, msg, chat_id, match):
 	bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
 
-def handle_protips(bot, msg, chat_id):
+def handle_protips(bot, msg, chat_id, match):
 	response="*Protips CPAR*\n"
 	i = 1
 	for protip in protips:
@@ -30,7 +30,7 @@ def handle_protips(bot, msg, chat_id):
 		i +=  1
 	bot.sendMessage(chat_id, response, "Markdown")
 
-def handle_karma(bot, msg, chat_id):
+def handle_karma(bot, msg, chat_id, match):
 	response = karma.count(re.sub("karma ","",command))
 	bot.sendMessage(chat_id, response)
 
