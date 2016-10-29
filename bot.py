@@ -13,60 +13,76 @@ def persistMessage(msg):
 	 f.write("\n")
 	 f.close()
 
+def handle_plano(bot, msg, chat_id):
+	bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
+
+def handle_gatito(bot, msg, chat_id):
+	bot.sendPhoto(chat_id, "http://thecatapi.com/api/images/get?type=gif")
+
+def handle_comollego(bot, msg, chat_id):
+	bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
+
+def handle_protips(bot, msg, chat_id):
+	response="*Protips CPAR*\n"
+	i = 1
+	for protip in protips:
+		response += "*%s-* %s\n" % (i, protip)
+		i +=  1
+	bot.sendMessage(chat_id, response, "Markdown")
+
+def handle_karma(bot, msg, chat_id):
+	response = karma.count(re.sub("karma ","",command))
+	bot.sendMessage(chat_id, response)
+
+def handle_protipClean(bot, msg, chat_id, match):
+	index = match.group(1)
+	print ("Removing protip #" + index)
+	if int(index) < len(protips):
+		protips.pop(int(index)-1)
+
 def handle(msg):
 	content_type, chat_type, chat_id = telepot.glance(msg)
 	pprint(msg)
+
 	if content_type == 'text':
+
 		matchObj = re.match("^campusbot (.*)", msg['text'])
 		if matchObj:
 			command = matchObj.group(1)
 			command.lower()
 			fromUser = msg['from']['username']
 			print("[Command] ", command, " from ", fromUser)
-			if command == 'plano':
-				bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/89cc483747597b3")
-			elif command == 'como llego':
-				bot.sendLocation(chat_id, -34.5614827695827, -58.50762742329734)
-			elif command == 'protips':
-				response="*Protips CPAR*\n"
-				i = 1
-				for protip in protips:
-					response+="*"
-					response+=str(i)
-					response+="-"
-					response+="* "
-					response+=protip
-					response+="\n"
-					i+= 1
-				bot.sendMessage(chat_id,response, "Markdown")
-			elif re.match("karma",command):
-				response = karma.count(re.sub("karma ","",command))
-				bot.sendMessage(chat_id,response)
-				protipCleanMatch = re.match("^cleanProtip ([0-9]+)", command)
-			if protipCleanMatch:
-				index = protipCleanMatch.group(1)
-				print ("Removing protip #"+index)
-				if int(index) < len(protips):
-					protips.pop(int(index)-1)
-		else:
-			protipMatch = re.match("^.*#protip (.*)", msg['text'])
-			if protipMatch:
-				protip = protipMatch.group(1)
-				print ("Protip: {}".format(protip))
-				protips.append(protip)
-				persistMessage(protip)
+
+			dispatcher = {
+				'^plano$': handle_plano,
+				'^bar$': handle_gatito,
+				'^comollego$': handle_comollego,
+				'^protips$': handle_protips,
+				'^karma$': handle_karma,
+				'^cleanProtip ([0-9]+)': handle_cleanProtip
+			}
+
+			for regex, handler in dispatcher.iteritems():
+				match = re.match("^cleanProtip ([0-9]+)", command)
+				if match:
+					handler(bot, msg, chat_id, match)  
+			return          
+
+		protipMatch = re.match("^.*#protip (.*)", msg['text'])
+		if protipMatch:
+			protip = protipMatch.group(1)
+			print ("Protip: {}".format(protip))
+			protips.append(protip)
+			persistMessage(protip)
+			return
+
 		karmaMatch = re.match("(\w+)\+\+", msg['text'])
 		if karmaMatch:
 			element = re.sub("\+\+",'',karmaMatch.group(1))
 			print ("Karma +1 a :".format(element))
 			karma.append(element)
 			persistMessage(protip)
-	
-
-		if msg['text'] == 'whoareyou':
-			bot.sendMessage(chat_id, "I'm a Bot programmed in Python, and y'all suck.")
-		if msg['text'] == 'guia':
-			bot.sendPhoto(chat_id, "http://argentina.campus-party.org/files/large/006225d505808e6")
+			return
 		
 		
 TOKEN = sys.argv[1]  # get token from command-line
