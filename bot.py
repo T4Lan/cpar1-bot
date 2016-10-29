@@ -62,7 +62,7 @@ def handle(msg):
 				'^cleanProtip ([0-9]+)': handle_cleanProtip
 			}
 
-			for regex, handler in dispatcher.iteritems():
+			for regex, handler in dispatcher.items():
 				match = re.match(regex, command)
 				if match:
 					handler(bot, msg, chat_id, match)  
